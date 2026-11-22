@@ -170,10 +170,10 @@ p,dd,blockquote,h3{text-wrap:balance}
 .prog .ft h3{font-family:var(--script);font-size:31px;color:var(--ox);line-height:1}
 
 /* ---------- 5: the family portrait, hung in the study ---------- */
-.c-port{background:linear-gradient(#15180c 0 50%,#0c0806 50%)}
+.c-port{background:linear-gradient(#17170c 0 50%,#0f0805 50%)}
 .c-port .wall{position:absolute;left:0;top:calc(50% - 400px);width:100%;max-width:none;height:auto}
-.c-port .fade{position:absolute;left:0;right:0;top:calc(50% + 148px);bottom:0;background:linear-gradient(180deg,rgba(12,8,6,0),rgba(12,8,6,.86) 30%,#0c0806 44%)}
-.c-port .in{inset:auto 0 0;height:190px;padding:0 40px 34px;justify-content:flex-end;color:#e9dcc2}
+.c-port .fade{position:absolute;left:0;right:0;top:calc(50% + 125px);bottom:0;background:linear-gradient(180deg,rgba(15,8,5,0),rgba(15,8,5,.93) 62px,#0f0805 92px)}
+.c-port .in{inset:auto 0 0;height:200px;padding:0 34px 38px;justify-content:flex-end;color:#e9dcc2}
 .c-port h2{font-family:var(--eng);font-weight:400;font-size:15.5px;letter-spacing:.36em;margin-right:-.36em;text-transform:uppercase;line-height:1.3}
 .c-port .hair{color:#c9a45c;margin:11px 0 10px}
 .c-port .when{font:italic 500 18.5px/1.2 var(--corm);color:#f1e6cf}
@@ -336,13 +336,13 @@ p,dd,blockquote,h3{text-wrap:balance}
 
     <!-- 5 -->
     <section class="card c-port" data-exit="lift" data-rot="4">
-      <img class="wall bleed" id="wall" src="img/wall.jpg" alt="Reference photograph in a gilt frame on a green panelled wall: a family group in tweeds and wool on a lawn, with dogs">
+      <img class="wall bleed" id="wall" src="img/wall.jpg" alt="A gilt-framed family portrait on a green panelled wall: three generations on a front lawn in sweaters, sport coats, wool coats, skirts and boots, with a dog">
       <div class="fade bleed" id="fade"></div>
       <div class="in">
         <h2 class="gilt">The Family Portrait</h2>
         <div class="hair"><i></i></div>
         <p class="when">11:30 AM &middot; Before the Feast</p>
-        <p class="n">On the front lawn, in your heritage best. The picture above is the look we are after, dogs optional.</p>
+        <p class="n">On the front lawn. Chinos, corduroy, sweaters, jackets, wool coats, skirts and boots.</p>
       </div>
       <div class="shade"></div>
     </section>
@@ -508,7 +508,7 @@ cards.forEach(c=>{const f=document.createElement('div');f.className='fit';const 
 function fit(){scale=Math.min(innerWidth/400,innerHeight/800);W=Math.min(innerWidth/scale,520);H=Math.min(innerHeight/scale,880);
   art.style.setProperty('--W',W+'px');art.style.setProperty('--H',H+'px');art.style.transform=`translate(-50%,-50%) scale(${scale})`;
   LC=Math.max(1,H/800,W/504);lane.style.backgroundSize=`${533.4*LC}px ${800*LC}px`;lane.style.backgroundPosition=`${W/2-281*LC}px ${H/2-400*LC}px`;lane.style.transformOrigin=`${W/2}px ${H/2+44*LC}px`;
-  $('#fade').style.top=`${(H-800)/2+548+330*(W/400-1)}px`;
+  $('#fade').style.top=`${(H-800)/2+Math.min(595.1*(W/400)-70,560)}px`;
   if(stage!=='deck'||idx===0)gates.style.transform=`scale(${W/400})`}
 addEventListener('resize',fit);fit();
 
