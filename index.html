@@ -191,8 +191,8 @@ p,dd,blockquote,h3{text-wrap:balance}
 .sheet::before{content:"";position:absolute;inset:9px;border:1px solid rgba(31,61,45,.6);outline:1px solid rgba(31,61,45,.28);outline-offset:-4px;pointer-events:none}
 .c-eve .in{padding:30px 22px 26px;justify-content:space-between}
 .c-eve .emblem{width:34px}
-.c-eve h2{font-family:var(--eng);font-weight:400;font-size:22px;letter-spacing:.32em;margin-right:-.32em;color:var(--green);line-height:1.1;margin-top:8px}
-.c-eve .sub{font:italic 500 16.5px/1.2 var(--corm);color:var(--ink-soft);margin-top:4px}
+.c-eve h2{font-weight:400;font-size:29px;color:var(--ox);line-height:1.05;white-space:nowrap}
+.c-eve .sub{font-size:8.6px;letter-spacing:.34em;margin-right:-.34em;color:var(--green);margin-top:7px}
 .c-eve .hair{color:var(--copper)}
 .ev .k{font-family:var(--eng);font-size:8.6px;letter-spacing:.34em;margin-right:-.34em;text-transform:uppercase;color:var(--ox)}
 .ev .nm{font-family:var(--eng);font-size:17.5px;letter-spacing:.2em;margin-right:-.2em;text-transform:uppercase;line-height:1.25;margin-top:4px;color:var(--ink)}
@@ -320,26 +320,6 @@ p,dd,blockquote,h3{text-wrap:balance}
     </section>
 
     <!-- 4 -->
-    <section class="card paper c-order" data-exit="lift" data-rot="-5">
-      <div class="in">
-        <img class="pl" src="img/sport.webp" alt="Coloured pencil drawing of a baseball glove and bat, a bow and quiver, an archery target, a cased pair of pistols and a cornhole board">
-        <h2 class="script">The Order of the Day</h2>
-        <div class="swell"><span class="caps">Morning till Dusk</span></div>
-        <ol class="prog">
-          <li><span class="t">10:00 AM</span><div><h3>Arrivals</h3><p>Welcome drinks and snacks on the gallery</p></div></li>
-          <li><span class="t">10:45 AM</span><div><h3>The Family Baseball Game</h3><p>One hour, before anyone has eaten</p></div></li>
-          <li><span class="t">12:00 PM</span><div><h3>The Archery Tournament</h3><p>With cornhole for the non-shooters</p></div></li>
-          <li><span class="t">12:30 PM</span><div><h3>The Sharpshooter Pistol Tournament</h3><p>Cider only until the last shot is fired</p></div></li>
-          <li class="ft"><span class="t">1:30 PM</span><div><h3>The Family Portrait</h3><p>Washed, changed and on the front lawn</p></div></li>
-          <li><span class="t">2:00 PM</span><div><h3>The Thanksgiving Feast</h3><p>Grace, a gratitude toast, red and white wine</p></div></li>
-          <li><span class="t">4:00 PM</span><div><h3>A Walk at Sunset</h3><p>Hot cider, eggnog or brandy in hand</p></div></li>
-          <li><span class="t">5:00 PM</span><div><h3>Dessert &amp; the Awards</h3><p>The sweet table and the day&rsquo;s prizes</p></div></li>
-        </ol>
-      </div>
-      <div class="shade"></div>
-    </section>
-
-    <!-- 5 -->
     <section class="card c-port" data-exit="lift" data-rot="4">
       <img class="wall bleed" id="wall" src="img/wall.jpg" alt="A gilt-framed family portrait on a green panelled wall: three generations on a front lawn in sweaters, sport coats, wool coats, skirts and boots, with a dog">
       <div class="fade bleed" id="fade"></div>
@@ -352,11 +332,31 @@ p,dd,blockquote,h3{text-wrap:balance}
       <div class="shade"></div>
     </section>
 
+    <!-- 5 -->
+    <section class="card paper c-order" data-exit="lift" data-rot="-5">
+      <div class="in">
+        <img class="pl" src="img/sport.webp" alt="Coloured pencil drawing of a baseball glove and bat, a bow and quiver, an archery target, a cased pair of pistols and a cornhole board">
+        <h2 class="script">The Order of the Day</h2>
+        <div class="swell"><span class="caps">Morning till Dusk</span></div>
+        <ol class="prog">
+          <li><span class="t">10:00 AM</span><div><h3>Arrivals</h3><p>Welcome drinks and snacks on the gallery</p></div></li>
+          <li><span class="t">10:45 AM</span><div><h3>The Family Baseball Game</h3><p>One hour, before anyone has eaten</p></div></li>
+          <li><span class="t">12:00 PM</span><div><h3>The Archery Tournament</h3><p>With cornhole for the non-shooters</p></div></li>
+          <li><span class="t">12:30 PM</span><div><h3>The Sharpshooter Pistol Tournament</h3></div></li>
+          <li class="ft"><span class="t">1:30 PM</span><div><h3>The Family Portrait</h3><p>Washed, changed and on the front lawn</p></div></li>
+          <li><span class="t">2:00 PM</span><div><h3>The Thanksgiving Feast</h3><p>Grace, a gratitude toast, red and white wine</p></div></li>
+          <li><span class="t">4:00 PM</span><div><h3>A Walk at Sunset</h3><p>Hot cider, eggnog or brandy in hand</p></div></li>
+          <li><span class="t">5:00 PM</span><div><h3>Dessert &amp; the Awards</h3><p>The sweet table and the day&rsquo;s prizes</p></div></li>
+        </ol>
+      </div>
+      <div class="shade"></div>
+    </section>
+
     <!-- 6 -->
     <section class="card c-eve" data-exit="flip">
       <div class="sheet">
       <div class="in">
-        <div><i class="emblem" style="margin:0 auto"></i><h2>This Evening</h2><p class="sub">at Magnolia Acres</p></div>
+        <div><h2 class="script">The Order of the Evening</h2><p class="eng sub">Dusk till Late</p></div>
         <div class="hair"><i></i></div>
         <div class="ev"><p class="k">After Dessert</p><p class="nm">Catan</p><p class="n">Friendships tested over sheep and ore</p></div>
         <div class="ev"><p class="k">After Catan</p><p class="nm">Fire, S&rsquo;mores &amp; Music</p><p class="n">At the fire pit, in the rocking chairs</p></div>
