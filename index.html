@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Thanksgiving at Magnolia Acres</title>
+<link rel="preload" href="fonts/pinyon.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/os-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="img/lane.jpg" as="image">
+<style>
+@font-face{font-family:"Old Standard";src:url(fonts/os-400.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Old Standard";src:url(fonts/os-400i.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Old Standard";src:url(fonts/os-700.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Pinyon";src:url(fonts/pinyon.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"Corm";src:url(fonts/corm.woff2) format("woff2");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Corm";src:url(fonts/corm-i.woff2) format("woff2");font-weight:500;font-style:italic;font-display:swap}
+@font-face{font-family:"Corm";src:url(fonts/corm-6.woff2) format("woff2");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Cinzel";src:url(fonts/cinzel.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Cinzel";src:url(fonts/cinzel-6.woff2) format("woff2");font-weight:600;font-display:swap}
+:root{
+  /* Layout: a 400 x 800 artboard scaled to fit the screen. A sealed envelope opens onto a stack of cards
+     that are peeled away by hand. Each card is its own printed object. Single theme by choice. */
+  --desk:#0e1c15;
+  --cream:#f1e7d0;
+  --ink:#27201a;
+  --ink-soft:#5b4c3d;
+  --ox:#6a181b;
+  --green:#1f3d2d;
+  --copper:#a8683c;
+  --foil:linear-gradient(100deg,#8a4f2b,#c98958 30%,#f2c9a0 48%,#b87545 62%,#8a4f2b);
+  --serif:"Old Standard","Bodoni 72",Didot,"Times New Roman",serif;
+  --corm:"Corm","Old Standard",Garamond,Georgia,serif;
+  --gilt:linear-gradient(100deg,#8f6a2e,#d2ad62 28%,#f7e6ad 47%,#c39a4c 63%,#8f6a2e);
+  --script:"Pinyon","Snell Roundhand","Apple Chancery",cursive;
+  --eng:"Cinzel","Trajan Pro","Old Standard",serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
+body{background:var(--desk);font-family:var(--serif);color:var(--ink);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:none}
+img{display:block;-webkit-user-drag:none;pointer-events:none}
+#desk{position:fixed;inset:0;background:radial-gradient(120% 90% at 30% 12%,rgba(255,214,150,.2),transparent 60%),radial-gradient(130% 120% at 50% 50%,transparent 45%,rgba(0,0,0,.72)),url(img/desk.jpg) 0 0/512px}
+#art{position:fixed;left:50%;top:50%;width:var(--W,400px);height:var(--H,800px);transform:translate(-50%,-50%);transform-origin:50% 50%;touch-action:none;cursor:grab}
+#deck{position:absolute;inset:0;z-index:2;perspective:2200px;perspective-origin:50% 40%}
+.card{position:absolute;inset:0;border-radius:3px;overflow:hidden;will-change:transform;transform-origin:50% 50%;
+  box-shadow:0 1px 0 #d39a6c,0 2px 0 #a8683c,0 3px 0 #7f4a27,0 26px 40px -14px rgba(0,0,0,.75)}
+.card[data-exit=book]{transform-origin:0 50%}
+.card[data-exit=flip]{transform-origin:50% 0}
+.fit{position:absolute;left:50%;top:50%;width:400px;height:800px;margin:-400px 0 0 -200px}
+.shade{position:absolute;inset:0;background:#0a0603;opacity:0;pointer-events:none;z-index:9}
+.paper{background:radial-gradient(130% 95% at 50% 42%,transparent 58%,rgba(120,92,48,.13)),url(img/ivory.jpg) 0 0/384px}
+.laid{background:url(img/paper_env.jpg) 0 0/512px}
+.frame::before{content:"";position:absolute;inset:9px;border:28px solid transparent;border-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90'><g fill='none' stroke='%23a5673f'><path stroke-width='1.7' d='M18 3H72A15 15 0 0 0 87 18V72A15 15 0 0 0 72 87H18A15 15 0 0 0 3 72V18A15 15 0 0 0 18 3Z'/><path stroke-width='.8' d='M22 9H68A13 13 0 0 0 81 22V68A13 13 0 0 0 68 81H22A13 13 0 0 0 9 68V22A13 13 0 0 0 22 9Z'/></g><g fill='%23a5673f'><circle cx='7.5' cy='7.5' r='2.3'/><circle cx='82.5' cy='7.5' r='2.3'/><circle cx='7.5' cy='82.5' r='2.3'/><circle cx='82.5' cy='82.5' r='2.3'/></g></svg>") 30 stretch;pointer-events:none}
+.in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;text-align:center;padding:44px 34px 40px}
+.script{font-family:var(--script);font-weight:400;line-height:1.05;color:var(--ox)}
+.caps{text-transform:uppercase;letter-spacing:.32em;font-size:10.5px;color:var(--green);margin-right:-.32em}
+.it{font-style:italic;color:var(--ink-soft)}
+p,dd,blockquote,h3{text-wrap:balance}
+.swell{display:flex;align-items:center;justify-content:center;gap:11px}
+.swell::before,.swell::after{content:"";width:58px;height:5px;background:var(--foil);clip-path:polygon(0 50%,55% 0,100% 30%,100% 70%,55% 100%)}
+.swell::after{transform:scaleX(-1)}
+.dia{width:6px;height:6px;background:var(--copper);transform:rotate(45deg);flex:none}
+.pl{width:100%}
+.emblem{display:block;aspect-ratio:1/1.03;background:var(--green);-webkit-mask:url(img/emblem.webp) center/contain no-repeat;mask:url(img/emblem.webp) center/contain no-repeat}
+.foiltxt{background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gilt{background:var(--gilt);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eng{font-family:var(--eng);font-weight:400;text-transform:uppercase}
+.hair{display:flex;align-items:center;justify-content:center;gap:10px;width:100%}
+.hair::before,.hair::after{content:"";height:1px;width:74px;background:currentColor;opacity:.55}
+.hair i{width:5px;height:5px;background:currentColor;transform:rotate(45deg)}
+
+/* ---------- envelope ---------- */
+#envb,#envp,#flap{position:absolute;left:0;top:0;width:var(--W,400px);height:var(--H,800px)}
+#envb{z-index:1;border-radius:4px;background:linear-gradient(180deg,rgba(4,8,6,.55),rgba(4,8,6,.05) 45%),url(img/blanket.jpg) 50% 30%/470px;box-shadow:inset 0 0 0 7px #e4d8ba,0 24px 34px -8px rgba(0,0,0,.7);will-change:transform}
+#envp{z-index:3;pointer-events:none;will-change:transform}
+#flap{z-index:4;height:calc(var(--H,800px)*.375);transform-origin:50% 0;will-change:transform}
+#flapwrap{position:absolute;left:0;top:0;width:var(--W,400px);height:var(--H,800px);z-index:4;perspective:1500px;perspective-origin:50% 20%;pointer-events:none}
+#flapwrap.behind{z-index:1}
+.face{position:absolute;inset:0}
+.fo{clip-path:polygon(0 0,100% 0,50% 100%);background:linear-gradient(180deg,rgba(255,252,240,.22),rgba(60,40,10,.12)),url(img/paper_env.jpg) 0 0/512px}
+.fo .ret{position:absolute;left:0;right:0;top:30px;text-align:center;font-size:9.5px;letter-spacing:.36em;text-transform:uppercase;color:rgba(31,61,45,.85);line-height:2.1}
+.fi{clip-path:polygon(0 100%,100% 100%,50% 0);transform:rotateX(180deg);background:url(img/paper_env.jpg) 0 0/512px;visibility:hidden}
+.fi i{position:absolute;inset:0;clip-path:polygon(7% 100%,93% 100%,50% 11%);background:linear-gradient(0deg,rgba(4,8,6,.35),transparent 60%),url(img/blanket.jpg) 50% 30%/470px}
+.fsh{position:absolute;inset:0;background:#1a0f04;opacity:0;clip-path:polygon(0 0,100% 0,50% 100%)}
+#seal{position:absolute;left:50%;top:100%;width:146px;height:146px;margin:-88px 0 0 -73px;filter:brightness(.74) saturate(1.1) drop-shadow(0 5px 6px rgba(20,4,2,.55));will-change:transform,opacity}
+#seal img{width:100%;height:100%}
+.ehint{position:absolute;left:0;right:0;bottom:76px;text-align:center;font-family:var(--eng);font-size:9.6px;letter-spacing:.34em;text-transform:uppercase;color:rgba(39,32,26,.72)}
+.chev{display:block;margin:0 auto 8px;width:18px;height:22px;animation:nudge 1.9s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateY(4px);opacity:.45}50%{transform:translateY(-5px);opacity:1}}
+
+/* ---------- 0: the gates ---------- */
+.c-gates{background:#2a1c10}
+.lane{position:absolute;inset:0;background:url(img/lane.jpg) -81px 0/533.4px 800px no-repeat;transform-origin:50% 55.5%;will-change:transform}
+.veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(24,13,5,.66),rgba(24,13,5,.24) 24%,transparent 40%),linear-gradient(0deg,rgba(16,9,4,.86),rgba(16,9,4,.5) 8%,transparent 17%)}
+.gtitle{position:absolute;left:0;right:0;top:70px;text-align:center;color:var(--cream);will-change:opacity}
+.gtitle .g1{font-family:var(--script);font-size:62px;line-height:1;text-shadow:0 2px 14px rgba(20,8,0,.7)}
+.gtitle .g2{margin-top:14px;font-family:var(--eng);font-size:10.5px;letter-spacing:.42em;margin-right:-.42em;text-transform:uppercase;color:#fbeed6;text-shadow:0 1px 4px rgba(20,8,0,.95),0 0 12px rgba(20,8,0,.7)}
+.gates{position:absolute;left:0;top:512px;width:400px;height:203.5px;perspective:900px;perspective-origin:50% 55%;transform-origin:50% 70%;will-change:transform,opacity}
+.gates::before{content:"";position:absolute;left:-10px;right:-10px;bottom:-9px;height:20px;background:radial-gradient(50% 50% at 50% 50%,rgba(10,5,0,.6),transparent);}
+.gates img{position:absolute;top:0;height:203.5px}
+.gp-l{left:0;width:51px}.gp-r{left:349px;width:51px}
+.leaf{position:absolute;top:0;height:203.5px;width:148.7px;will-change:transform}
+.leaf img{left:0;width:100%}
+.leaf.l{left:51px;transform-origin:0 50%}.leaf.r{left:199.7px;width:149.3px;transform-origin:100% 50%}
+.leaf .ls{display:none}
+.ghint{position:absolute;left:0;right:0;bottom:24px;text-align:center;font-family:var(--eng);font-size:9.6px;letter-spacing:.38em;text-transform:uppercase;color:#f6ead2;text-shadow:0 1px 6px rgba(0,0,0,.9);will-change:opacity}
+
+/* ---------- 1: the invitation ---------- */
+.c-title .in{padding:26px 28px 34px;gap:0}
+.c-title .mag{width:232px;margin:-2px 0 7px;transform:rotate(-4deg)}
+.c-title h1{font-size:62px;margin:3px 0 -3px;white-space:nowrap}
+.c-title .house{width:400px;height:266.7px;max-width:none;margin:-22px 0 -38px;-webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 52%,transparent 96%);mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 52%,transparent 96%)}
+.c-title h2{margin-top:5px;font-size:26px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;margin-right:-.2em;color:var(--green);line-height:1.1}
+.c-title .swell{margin:6px 0 0}
+.c-title .date{font-size:16.5px;line-height:1.25;margin-top:16px}
+.c-title .yr{margin-top:9px;color:var(--ink)}
+.c-title .place{font-size:15.5px;margin-top:9px}
+.c-title .hair{color:var(--copper);margin:17px 0 14px}
+.c-title .hair::before,.c-title .hair::after{width:48px}
+.c-title .hist{font-size:13.2px;line-height:1.62;max-width:296px}
+.st{opacity:0;transition:opacity 1.1s ease;transition-delay:calc(var(--i,0)*.16s)}
+.on .st{opacity:1}
+.cue{position:absolute;left:0;right:0;bottom:22px;text-align:center}
+
+/* ---------- 2: particulars, a card on the writing desk ---------- */
+.c-part{background:#1a130c url(img/flatlay.jpg) calc(50% + 6.7px) 50%/533.4px 883.3px no-repeat}
+.c-part .in{inset:140px 27px 166px;padding:14px 20px 12px;justify-content:center}
+.c-part .emblem{display:none}
+.c-part h2{font-family:var(--script);font-weight:400;font-size:38px;line-height:1;color:var(--ox)}
+.c-part .hair{color:var(--copper);margin:6px 0 12px}
+.c-part dl{display:grid;gap:13px;width:100%}
+.c-part dt{font-family:var(--eng);text-transform:uppercase;letter-spacing:.3em;margin-right:-.3em;font-size:8.6px;color:var(--green);margin-bottom:3px}
+.c-part dd{font-size:16px;line-height:1.26}
+.c-part dd i{display:block;font:italic 500 14.6px/1.22 var(--corm);color:var(--ink-soft);margin-top:3px}
+.alm{display:flex;justify-content:center;gap:30px;margin-top:2px}
+.alm>span{display:block;font-size:7.6px;line-height:1.2}
+.alm b{display:block;font-weight:400;font-size:29px;line-height:1;color:var(--ox);margin-bottom:4px}
+.alm span span{font-family:var(--eng);font-size:7.6px;letter-spacing:.26em;margin-right:-.26em;text-transform:uppercase;color:var(--green)}
+.c-part dd .alm+i{margin-top:9px}
+
+/* ---------- 3: dress code, a tailor's swatch card ---------- */
+.c-dress .in{padding:30px 30px 34px}
+.c-dress .pl{width:330px;margin:8px 0 6px}
+.c-dress h2{font-size:46px;margin-top:-4px}
+.c-dress .cols{display:grid;grid-template-columns:1fr 1fr;gap:0 12px;margin-top:16px;width:100%}
+.c-dress .cols h3{font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;font-weight:400;color:var(--green);margin-bottom:4px}
+.c-dress .cols p{font-size:13.6px;line-height:1.55}
+.sw{display:flex;justify-content:center;gap:9px;margin-top:20px}
+.sw figure{width:78px}
+.sw img{width:78px;filter:drop-shadow(0 3px 3px rgba(40,24,8,.42))}
+.sw figure:nth-child(1) img{transform:rotate(-3deg)}
+.sw figure:nth-child(2) img{transform:rotate(2deg)}
+.sw figure:nth-child(3) img{transform:rotate(-1.5deg)}
+.sw figure:nth-child(4) img{transform:rotate(3deg)}
+.sw figcaption{margin-top:7px;font-family:var(--eng);font-size:7.6px;letter-spacing:.24em;text-transform:uppercase;color:var(--green)}
+
+/* ---------- 4: the order of the day, a programme ---------- */
+.c-order::after{content:"";position:absolute;left:0;right:0;top:0;height:20px;background:url(img/blanket.jpg) 30% 12%/300px;box-shadow:0 2px 5px rgba(0,0,0,.4)}
+.c-order .in{padding:36px 24px 26px}
+.c-order .pl{width:290px}
+.c-order h2{font-size:40px;margin-top:-4px}
+.prog{list-style:none;width:100%;margin-top:14px;display:grid;gap:15px;text-align:left}
+.prog li{display:grid;grid-template-columns:78px 1fr;gap:13px;align-items:baseline}
+.prog .t{text-align:right;font-size:10.5px;letter-spacing:.14em;white-space:nowrap;text-transform:uppercase;color:var(--ox);line-height:1.5}
+.prog h3{font-size:18px;font-weight:400;line-height:1.2}
+.prog p{font-size:13.4px;font-style:italic;color:var(--ink-soft);line-height:1.3;text-wrap:wrap}
+.prog .ft h3{font-family:var(--script);font-size:31px;color:var(--ox);line-height:1}
+
+/* ---------- 5: the family portrait, hung in the study ---------- */
+.c-port{background:linear-gradient(#15180c 0 50%,#0c0806 50%)}
+.c-port .wall{position:absolute;left:0;top:calc(50% - 400px);width:100%;max-width:none;height:auto}
+.c-port .fade{position:absolute;left:0;right:0;top:calc(50% + 148px);bottom:0;background:linear-gradient(180deg,rgba(12,8,6,0),rgba(12,8,6,.86) 30%,#0c0806 44%)}
+.c-port .in{inset:auto 0 0;height:190px;padding:0 40px 34px;justify-content:flex-end;color:#e9dcc2}
+.c-port h2{font-family:var(--eng);font-weight:400;font-size:15.5px;letter-spacing:.36em;margin-right:-.36em;text-transform:uppercase;line-height:1.3}
+.c-port .hair{color:#c9a45c;margin:11px 0 10px}
+.c-port .when{font:italic 500 18.5px/1.2 var(--corm);color:#f1e6cf}
+.c-port p.n{margin-top:9px;font:500 15.5px/1.36 var(--corm);max-width:326px;color:#cdbf9f}
+
+/* ---------- 6: the evening, an engraved card on the tartan throw ---------- */
+.c-eve{background:#111c16 url(img/blanket.jpg) 46% 50%/520px}
+.c-eve::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 85% at 50% 45%,transparent 60%,rgba(0,0,0,.38))}
+.sheet{position:absolute;inset:40px 31px 44px;background:url(img/ivory.jpg) 40px 90px/384px;box-shadow:0 0 0 1px #c9a45c,0 1px 2px rgba(0,0,0,.6),0 16px 24px -8px rgba(0,0,0,.75)}
+.sheet::before{content:"";position:absolute;inset:9px;border:1px solid rgba(31,61,45,.6);outline:1px solid rgba(31,61,45,.28);outline-offset:-4px;pointer-events:none}
+.c-eve .in{padding:30px 22px 26px;justify-content:space-between}
+.c-eve .emblem{width:34px}
+.c-eve h2{font-family:var(--eng);font-weight:400;font-size:22px;letter-spacing:.32em;margin-right:-.32em;color:var(--green);line-height:1.1;margin-top:8px}
+.c-eve .sub{font:italic 500 16.5px/1.2 var(--corm);color:var(--ink-soft);margin-top:4px}
+.c-eve .hair{color:var(--copper)}
+.ev .k{font-family:var(--eng);font-size:8.6px;letter-spacing:.34em;margin-right:-.34em;text-transform:uppercase;color:var(--ox)}
+.ev .nm{font-family:var(--eng);font-size:17.5px;letter-spacing:.2em;margin-right:-.2em;text-transform:uppercase;line-height:1.25;margin-top:4px;color:var(--ink)}
+.ev .nm.lg{font-size:25px;letter-spacing:.42em;margin-right:-.42em;color:var(--ox)}
+.ev .n{font:italic 500 16px/1.25 var(--corm);color:var(--ink-soft);margin-top:1px}
+.ev .sc{font-family:var(--script);font-size:23.5px;line-height:1.05;color:var(--green);white-space:nowrap;margin-top:4px}
+.duo{display:flex;justify-content:center;gap:4px}
+.duo img{width:142px}
+
+/* ---------- 7: bill of fare, bound in green leather ---------- */
+.c-cover{background:#12241a url(img/leather.jpg) 0 0/100% 100%}
+.c-cover .in{justify-content:center;gap:15px;filter:drop-shadow(0 1px 0 rgba(0,0,0,.55))}
+.c-cover .emblem{width:92px;background:var(--gilt)}
+.c-cover h2{font-family:var(--script);font-weight:400;font-size:74px;line-height:1.05;padding:0 8px}
+.c-cover .eng{font-size:10.5px;letter-spacing:.36em;margin-right:-.36em;color:#d9b972}
+.c-cover .hair{color:#c9a45c}
+/* ---------- 8-10: bill of fare ---------- */
+.c-menu .in{padding:42px 28px 40px;font-family:var(--corm);font-weight:500;justify-content:center}
+.c-menu h3{font-family:var(--eng);font-weight:400;text-transform:uppercase;letter-spacing:.3em;font-size:11.5px;color:var(--green);margin-right:-.3em}
+.c-menu h3 small{display:block;font:italic 500 15.5px var(--corm);letter-spacing:0;text-transform:none;color:var(--ink-soft);margin-bottom:2px}
+.c-menu ul{list-style:none;font-size:18.5px;font-weight:600;line-height:1.26;margin-top:6px}
+.c-menu li i{display:block;font:italic 500 15.2px/1.1 var(--corm);color:var(--ink-soft);margin:-1px 0 4px}
+.c-menu ul.two{display:grid;grid-template-columns:1fr 1fr;gap:0 10px;font-size:18px}
+.c-menu .verse{font-style:italic;font-size:18.5px;line-height:1.3;max-width:300px;margin-top:6px}
+.c-menu .pg{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:.3em;color:var(--copper)}
+
+/* ---------- 11-12: the house rules, engraved in oxblood ---------- */
+.c-rules::before{content:"";position:absolute;inset:12px;border:1px solid var(--ox);outline:1px solid rgba(106,24,27,.4);outline-offset:-5px;pointer-events:none}
+.c-rules .in{padding:36px 30px 32px;justify-content:center;font-family:var(--corm);font-weight:500}
+.c-rules .emblem{width:38px;background:var(--ox)}
+.c-rules .eye{font-family:var(--eng);font-size:8.6px;letter-spacing:.38em;margin-right:-.38em;text-transform:uppercase;color:var(--ink-soft);margin-top:9px}
+.c-rules h2{font-family:var(--eng);font-weight:400;font-size:24px;letter-spacing:.24em;margin-right:-.24em;text-transform:uppercase;color:var(--ox);line-height:1.15;margin-top:5px}
+.c-rules .hair{color:var(--ox);margin:9px 0 8px}
+.hand{font-size:16px;font-style:italic;line-height:1.3;color:var(--ink-soft)}
+.rl{list-style:none;width:100%;display:grid;gap:12px;margin-top:6px}
+.rl li{display:grid;grid-template-columns:34px 1fr;gap:10px;text-align:left;align-items:start}
+.rl .num{font-family:var(--eng);font-size:13.5px;line-height:1.3;text-align:right;color:var(--ox);letter-spacing:.04em}
+.rl h3{font-family:var(--eng);font-weight:600;font-size:11.2px;letter-spacing:.2em;text-transform:uppercase;line-height:1.5;color:var(--ink)}
+.rl p{font-size:16.6px;line-height:1.24;margin-top:1px}
+.rl.two{gap:13px;margin-top:12px}
+.rl.two p{font-size:16.8px;text-wrap:pretty}
+
+/* ---------- 13: closing letter ---------- */
+.c-close .in{justify-content:center;gap:8px;padding:40px 38px}
+.c-close blockquote{font-style:italic;font-size:21px;line-height:1.45;margin-top:10px}
+.c-close .sig{font-size:46px}
+.c-close .wax{width:118px;margin-top:10px;filter:brightness(.74) saturate(1.1) drop-shadow(0 5px 6px rgba(20,4,2,.5))}
+#again{margin-top:16px;background:none;border:0;border-bottom:1px solid rgba(39,32,26,.5);font:400 10px var(--serif);letter-spacing:.3em;text-transform:uppercase;color:var(--ink);padding:6px 2px;cursor:pointer}
+#bar{position:absolute;left:0;right:0;bottom:0;height:2px;z-index:8;background:rgba(168,104,60,.25);opacity:0;transition:opacity .6s}
+#bar i{display:block;height:100%;width:0;background:var(--foil);transition:width .5s ease}
+@media (prefers-reduced-motion:reduce){.chev{animation:none}}
+</style>
+</head>
+<body>
+<div id="desk" aria-hidden="true"></div>
+<main id="art" aria-label="Invitation. Swipe up, tap, or press the arrow keys to move through it.">
+  <div id="envb"></div>
+
+  <div id="deck">
+    <!-- 0 -->
+    <section class="card c-gates" data-exit="drive">
+      <div class="lane bleed" id="lane"></div><div class="veil bleed" id="veil"></div>
+      <div class="gtitle" id="gtitle"><p class="g1">Magnolia Acres</p><p class="g2">Established 1850</p></div>
+      <div class="gates" id="gates">
+        <div class="leaf l" id="leafL"><img src="img/gate_ll.webp" alt=""><div class="ls"></div></div>
+        <div class="leaf r" id="leafR"><img src="img/gate_rl.webp" alt=""><div class="ls"></div></div>
+        <img class="gp-l" src="img/gate_pl.webp" alt=""><img class="gp-r" src="img/gate_pr.webp" alt="">
+      </div>
+      <p class="ghint" id="ghint"><svg class="chev" viewBox="0 0 18 22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10l7-7 7 7M2 19l7-7 7 7"/></svg>Swipe up to open the gates</p>
+      <div class="shade"></div>
+    </section>
+
+    <!-- 1 -->
+    <section class="card paper frame c-title" data-exit="lift" data-rot="-4">
+      <div class="in">
+        <img class="mag st" style="--i:3" src="img/magnolia.webp" alt="">
+        <p class="it st" style="--i:4;font-size:16px;margin-top:6px">You are cordially invited to</p>
+        <h1 class="script st" style="--i:6">Thanksgiving</h1>
+        <img class="house" id="house" src="img/hero.jpg" alt="The house at Magnolia Acres at the end of the drive">
+        <h2 class="st" style="--i:7">Magnolia Acres</h2>
+        <div class="swell st" style="--i:8"><span class="caps">Established 1850</span></div>
+        <p class="date st" style="--i:9">Thursday, the Twenty-sixth of November</p>
+        <p class="caps yr st" style="--i:9">Anno Domini MMXXVI</p>
+        <p class="it place st" style="--i:10">Columbia, Tennessee</p>
+        <div class="hair st" style="--i:10"><i></i></div>
+        <p class="hist it st" style="--i:11">A Civil War-era estate on ten acres, brimming with wildlife. Enter through the gate, drive down the wooded quarter-mile gravel road.</p>
+      </div>
+      <p class="cue caps st" style="--i:14;color:var(--ink-soft)"><svg class="chev" viewBox="0 0 18 22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10l7-7 7 7M2 19l7-7 7 7"/></svg></p>
+      <div class="shade"></div>
+    </section>
+
+    <!-- 2 -->
+    <section class="card c-part" data-exit="lift" data-rot="5">
+      <div class="in">
+        <i class="emblem"></i>
+        <h2>The Particulars</h2>
+        <div class="hair"><i></i></div>
+          <dl>
+            <div><dt>When</dt><dd>Thursday, November 26th, 2026<i>Arrive from 11:30 AM. Dinner at 12:30 PM.</i></dd></div>
+            <div><dt>Where</dt><dd>Magnolia Acres<br>4005 Trotwood Avenue<br>Columbia, Tennessee<i>Through the gates and down the drive.</i></dd></div>
+            <div><dt>The Almanack</dt><dd><span class="alm"><span><b>41&deg;</b><span>High</span></span><span><b>34&deg;</b><span>Low</span></span><span><b>15%</b><span>Rain</span></span></span><i>Cold and mostly dry. Rain is likely Wednesday, so expect a soft lawn. Forecast as of November 21st.</i></dd></div>
+            <div><dt>Your Hosts</dt><dd>Michaela Dockery &amp; Gabriel Hugoboom<i>Message Gabriel if your plans change.</i></dd></div>
+          </dl>
+      </div>
+      <div class="shade"></div>
+    </section>
+
+    <!-- 3 -->
+    <section class="card paper frame c-dress" data-exit="flip">
+      <div class="in">
+        <img class="pl" src="img/looks.webp" alt="Coloured pencil drawing of two women and two men in tweed, cable knits, tartan, corduroy and leather boots">
+        <h2 class="script">The Dress Code</h2>
+        <div class="swell" style="margin-top:2px"><span class="caps">American Heritage</span></div>
+        <p class="it" style="font-size:14px;line-height:1.4;margin-top:10px;max-width:326px">Mostly for the family portrait, taken straight after dinner. Country clothes in the old American tradition, the way Ralph Lauren would dress a Tennessee autumn.</p>
+        <div class="cols">
+          <div><h3>Ladies</h3><p>Wool and tweed skirts<br>Blazers and riding jackets<br>Cable-knit sweaters<br>Leather riding boots<br>Silk scarves, leather gloves</p></div>
+          <div><h3>Gentlemen</h3><p>Tweed coats and blazers<br>Wool trousers, corduroys<br>Sweaters and waistcoats<br>Leather boots or brogues<br>Waxed jackets, wool ties</p></div>
+        </div>
+        <div class="sw">
+          <figure><img src="img/sw_tweed.webp" alt=""><figcaption>Tweed</figcaption></figure><figure><img src="img/sw_tartan.webp" alt=""><figcaption>Tartan</figcaption></figure><figure><img src="img/sw_hound.webp" alt=""><figcaption>Check</figcaption></figure><figure><img src="img/sw_cord.webp" alt=""><figcaption>Cord</figcaption></figure>
+        </div>
+        <p class="caps" style="font-size:8.6px;margin-top:20px;line-height:1.9">Tobacco &middot; Olive &middot; Camel<br>Cream &middot; Oxblood &middot; Navy</p>
+      </div>
+      <div class="shade"></div>
+    </section>
+
+    <!-- 4 -->
+    <section class="card paper c-order" data-exit="lift" data-rot="-5">
+      <div class="in">
+        <img class="pl" src="img/sport.webp" alt="Coloured pencil drawing of a baseball glove and bat, a bow and quiver, an archery target, a cased pair of pistols and a cornhole board">
+        <h2 class="script">The Order of the Day</h2>
+        <div class="swell"><span class="caps">Morning till Dusk</span></div>
+        <ol class="prog">
+          <li><span class="t">11:30 AM</span><div><h3>Arrivals</h3><p>Cider and eggnog on the gallery</p></div></li>
+          <li><span class="t">12:30 PM</span><div><h3>Thanksgiving Dinner</h3><p>Grace, a gratitude toast, two full hours</p></div></li>
+          <li class="ft"><span class="t">2:30 PM</span><div><h3>The Family Portrait</h3><p>On the front lawn, before the games</p></div></li>
+          <li><span class="t">2:45 PM</span><div><h3>The Archery Tournament</h3><p>Cider only until the last shot of the day</p></div></li>
+          <li><span class="t">Meanwhile</span><div><h3>Cornhole on the Lawn</h3><p>For those who would rather not shoot</p></div></li>
+          <li><span class="t">3:15 PM</span><div><h3>The Sharpshooter Pistol Tournament</h3><p>The same rule applies</p></div></li>
+          <li><span class="t">3:45 PM</span><div><h3>The Family Baseball Game</h3><p>One hour, played until the light goes</p></div></li>
+          <li><span class="t">5:00 PM</span><div><h3>Dessert &amp; the Awards</h3><p>The sweet table and the day&rsquo;s prizes</p></div></li>
+        </ol>
+      </div>
+      <div class="shade"></div>
+    </section>
+
+    <!-- 5 -->
+    <section class="card c-port" data-exit="lift" data-rot="4">
+      <img class="wall bleed" id="wall" src="img/wall.jpg" alt="Reference photograph in a gilt frame on a green panelled wall: a family group in tweeds and wool on a lawn, with dogs">
+      <div class="fade bleed" id="fade"></div>
+      <div class="in">
+        <h2 class="gilt">The Family Portrait</h2>
+        <div class="hair"><i></i></div>
+        <p class="when">2:30 PM &middot; Straight after Dinner</p>
+        <p class="n">On the front lawn, in your heritage best. The picture above is the look we are after, dogs optional.</p>
+      </div>
+      <div class="shade"></div>
+    </section>
+
+    <!-- 6 -->
+    <section class="card c-eve" data-exit="flip">
+      <div class="sheet">
+      <div class="in">
+        <div><i class="emblem" style="margin:0 auto"></i><h2>This Evening</h2><p class="sub">at Magnolia Acres</p></div>
+        <div class="hair"><i></i></div>
+        <div class="ev"><p class="k">After Dessert</p><p class="nm">Catan</p><p class="n">Friendships tested over sheep and ore</p></div>
+        <div class="ev"><p class="k">After Dark</p><p class="nm">Fire, S&rsquo;mores &amp; Music</p><p class="n">At the fire pit, in the rocking chairs</p></div>
+        <div class="duo"><img src="img/evening.webp" alt="Coloured pencil drawing of a fire pit, a guitar and a rocking chair"><img src="img/games.webp" alt="Coloured pencil drawing of playing cards, dice, a candle, a film reel and popcorn"></div>
+        <div class="ev"><p class="k">The Final Game</p><p class="nm lg">Mafia</p><p class="n">Trust no one, least of all your relatives</p></div>
+        <div class="hair"><i></i></div>
+        <div class="ev"><p class="k">The Evening Picture</p><p class="sc">A Charlie Brown Thanksgiving</p></div>
+      </div>
+      </div>
+      <div class="shade"></div>
+    </section>
+
+    <!-- 7 -->
+    <section class="card c-cover" data-exit="book">
+      <div class="in">
+        <i class="emblem"></i>
+        <h2 class="gilt">Bill of Fare</h2>
+        <div class="hair"><i></i></div>
+        <p class="eng">Thanksgiving Dinner</p>
+        <p class="eng" style="font-size:9px">12:30 PM</p>
+      </div>
+      <div class="shade"></div>
+    </section>
+
+    <!-- 8 -->
+    <section class="card paper frame c-menu" data-exit="book">
+      <div class="in">
+        <h3>Grace</h3>
+        <p class="verse">&ldquo;O give thanks unto the Lord, for he is good: for his mercy endureth for ever.&rdquo;</p>
+        <p class="caps" style="font-size:8.5px;margin-top:5px">Psalm 107:1</p>
+        <img src="img/quill.webp" alt="" style="width:196px;margin-top:10px">
+        <h3 style="margin-top:2px">The Gratitude Toast</h3>
+        <p class="it" style="font-size:17.5px;margin-top:4px">Each of us shares one thing we are grateful for, then glasses up</p>
+        <div class="dia" style="margin:12px 0 8px"></div>
+        <img class="pl" src="img/begin.webp" alt="Coloured pencil drawing of bacon-wrapped dates, pears, cranberries, pecans, sourdough and a basket of rolls" style="width:300px">
+        <h3 style="margin-top:6px"><small>First Course</small>To Begin</h3>
+        <ul><li>Devils on Horseback<i>bacon-wrapped dates, goat cheese</i></li><li>Autumn Harvest Salad<i>arugula, pear, cranberry, candied pecans</i></li><li>The Bread Basket<i>warm rolls and sourdough</i></li></ul>
+      </div>
+      <p class="pg">I</p>
+      <div class="shade"></div>
+    </section>
+
+    <!-- 9 -->
+    <section class="card paper frame c-menu" data-exit="book">
+      <div class="in">
+        <img class="pl" src="img/carving.webp" alt="Coloured pencil drawing of a roast turkey, a glazed ham, a gravy boat and cranberry sauce" style="width:272px">
+        <h3 style="margin-top:6px"><small>Second Course</small>The Carving Board</h3>
+        <ul><li>Heritage Roast Turkey<i>pan gravy, cranberry sauce</i></li><li>Glazed Holiday Ham</li></ul>
+        <div class="dia" style="margin:14px 0 8px"></div>
+        <img class="pl" src="img/kitchen.webp" alt="Coloured pencil drawing of mashed potatoes, cornbread, carrots, green beans, macaroni and sweet potatoes" style="width:258px">
+        <h3 style="margin-top:6px"><small>Served Alongside</small>From the Kitchen</h3>
+        <ul><li>Buttered Mashed Potatoes</li><li>Classic Herb Stuffing</li><li>Brown Sugar Sweet Potatoes</li><li>Skillet Cornbread Casserole</li><li>Southern Green Beans</li><li>Baked Macaroni &amp; Cheese</li><li>Hot Honey Carrots<i>over whipped feta</i></li></ul>
+      </div>
+      <p class="pg">II</p>
+      <div class="shade"></div>
+    </section>
+
+    <!-- 10 -->
+    <section class="card paper frame c-menu" data-exit="lift" data-rot="5">
+      <div class="in">
+        <img class="pl" src="img/sweet.webp" alt="Coloured pencil drawing of apple, pumpkin and pecan pies, a cheesecake and banana pudding" style="width:300px">
+        <h3 style="margin-top:6px"><small>Dessert, at 5:00 PM</small>The Sweet Table</h3>
+        <ul><li>Spiced Pumpkin Pie</li><li>Toasted Pecan Pie</li><li>Old-Fashioned Apple Pie</li><li>Pumpkin Cheesecake</li><li>Southern Banana Pudding</li></ul>
+        <div class="dia" style="margin:14px 0 8px"></div>
+        <img class="pl" src="img/cellar.webp" alt="Coloured pencil drawing of a decanter, wine glasses, a cider jug, eggnog, sangria and grapes" style="width:312px">
+        <h3 style="margin-top:6px"><small>All Day</small>From the Cellar</h3>
+        <ul class="two" style="width:330px"><li>Red &amp; White Wines</li><li>Orchard Apple Cider</li><li>Holiday Eggnog</li><li>Autumn Sangria</li></ul>
+      </div>
+      <p class="pg">III</p>
+      <div class="shade"></div>
+    </section>
+
+    <!-- 11 -->
+    <section class="card paper c-rules" data-exit="lift" data-rot="-4">
+      <div class="in">
+        <i class="emblem"></i>
+        <p class="eye">Magnolia Acres</p>
+        <h2>The House Rules</h2>
+        <div class="hair"><i></i></div>
+        <ol class="rl two">
+          <li><span class="num">I.</span><div><h3>Watch Your Kids</h3><p>The floors are uneven and everything nice in this house is breakable. Your kids are your job today.</p></div></li>
+          <li><span class="num">II.</span><div><h3>No Arguing</h3><p>Blessed are the peacemakers.</p></div></li>
+          <li><span class="num">III.</span><div><h3>Respect and Love</h3><p>Treat everyone with respect and love. Don&rsquo;t be the one who ruins Thanksgiving by being a twat.</p></div></li>
+          <li><span class="num">IV.</span><div><h3>Know Your Limit</h3><p>You are not fun when you&rsquo;re drunk. Don&rsquo;t make a fool of yourself.</p></div></li>
+          <li><span class="num">V.</span><div><h3>You Break It, You Bought It</h3><p>Spill it, stain it or break it, and you clean it, fix it or replace it.</p></div></li>
+          <li><span class="num">VI.</span><div><h3>English in Company</h3><p>Speak English around other people. Otherwise we will assume you&rsquo;re talking about us. It&rsquo;s rude.</p></div></li>
+          <li><span class="num">VII.</span><div><h3>Not Your Party</h3><p>Don&rsquo;t try to run the day. If you want to call the shots, host at your house and foot the bill.</p></div></li>
+        </ol>
+      </div>
+      <div class="shade"></div>
+    </section>
+
+    <!-- 12 -->
+    <section class="card paper frame c-close" data-exit="none">
+      <div class="in">
+        <img src="img/magnolia.webp" alt="" style="width:190px;transform:rotate(-4deg);margin-bottom:4px">
+        <blockquote>&ldquo;I would maintain that thanks are the highest form of thought; and that gratitude is happiness doubled by wonder.&rdquo;</blockquote>
+        <p class="caps" style="margin:6px 0 26px">G. K. Chesterton</p>
+        <img class="wax" src="img/seal.webp" alt="">
+        <div class="swell" style="margin-top:8px"><span class="caps">Est. 1850</span></div>
+        <button id="again" type="button">Seal the envelope again</button>
+      </div>
+      <div class="shade"></div>
+    </section>
+  </div>
+
+  <svg id="envp" viewBox="0 0 388 788" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <pattern id="pp" patternUnits="userSpaceOnUse" width="512" height="512"><image href="img/paper_env.jpg" width="512" height="512"/></pattern>
+      <linearGradient id="gl" x1="0" x2="1"><stop offset="0" stop-color="#fff8e4" stop-opacity=".1"/><stop offset=".8" stop-color="#3b2a12" stop-opacity=".06"/><stop offset="1" stop-color="#3b2a12" stop-opacity=".2"/></linearGradient>
+      <linearGradient id="gr" x1="1" x2="0"><stop offset="0" stop-color="#3b2a12" stop-opacity=".12"/><stop offset=".8" stop-color="#3b2a12" stop-opacity=".1"/><stop offset="1" stop-color="#3b2a12" stop-opacity=".24"/></linearGradient>
+      <linearGradient id="gb" x1="0" x2="0" y1="1" y2="0"><stop offset="0" stop-color="#fff8e4" stop-opacity=".14"/><stop offset="1" stop-color="#3b2a12" stop-opacity=".1"/></linearGradient>
+      <filter id="sf" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="8"/></filter>
+      <filter id="sf2" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3"/></filter>
+      <clipPath id="pc"><rect width="388" height="788" rx="4"/></clipPath>
+    </defs>
+    <g clip-path="url(#pc)">
+      <path d="M-20 -26L194 278L408 -26" fill="none" stroke="rgba(24,12,0,.5)" stroke-width="20" filter="url(#sf)"/>
+      <polygon points="0,0 194,286 194,788 0,788" fill="url(#pp)"/><polygon points="0,0 194,286 194,788 0,788" fill="url(#gl)"/>
+      <polygon points="197,288 210,286 210,788 197,788" fill="rgba(40,24,6,.3)" filter="url(#sf2)"/>
+      <polygon points="388,0 194,286 194,788 388,788" fill="url(#pp)"/><polygon points="388,0 194,286 194,788 388,788" fill="url(#gr)"/>
+      <path d="M0 0L194 286L388 0" fill="none" stroke="rgba(255,250,232,.75)" stroke-width="1.2"/>
+      <line x1="194" y1="286" x2="194" y2="538" stroke="rgba(60,40,14,.4)" stroke-width="1"/>
+      <polygon points="0,788 194,524 388,788" fill="rgba(30,18,4,.5)" filter="url(#sf)"/>
+      <polygon points="-2,790 194,538 390,790" fill="url(#pp)"/><polygon points="0,788 194,538 388,788" fill="url(#gb)"/>
+      <path d="M0 788L194 538L388 788" fill="none" stroke="rgba(255,250,232,.8)" stroke-width="1.2"/>
+      <polygon id="fshadow" points="0,0 388,0 194,320" fill="rgba(30,18,4,.55)" filter="url(#sf)"/>
+    </g>
+  </svg>
+
+  <div id="flapwrap">
+    <p class="ehint" id="ehint"><svg class="chev" viewBox="0 0 18 22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10l7-7 7 7M2 19l7-7 7 7"/></svg>Swipe up to break the seal</p>
+    <div id="flap">
+      <div class="face fo" id="fo"><div class="ret">Magnolia Acres<br>Columbia, Tennessee</div><div class="fsh" id="fsh"></div></div>
+      <div class="face fi" id="fi"><i></i></div>
+      <div id="seal"><img src="img/seal.webp" alt=""></div>
+    </div>
+  </div>
+  <div id="bar"><i></i></div>
+</main>
+
+<script>
+(()=>{
+'use strict';
+const $=s=>document.querySelector(s),art=$('#art'),cards=[...document.querySelectorAll('.card')],N=cards.length;
+const envb=$('#envb'),envp=$('#envp'),flapwrap=$('#flapwrap'),flap=$('#flap'),fo=$('#fo'),fi=$('#fi'),fsh=$('#fsh'),seal=$('#seal'),fshadow=$('#fshadow');
+const lane=$('#lane'),veil=$('#veil'),gtitle=$('#gtitle'),gates=$('#gates'),leafL=$('#leafL'),leafR=$('#leafR'),ghint=$('#ghint'),house=$('#house'),bar=$('#bar');
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let scale=1,W=400,H=800,LC=1,stage='env',idx=0,busy=false,drag=null,raf=0;
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const eOut=t=>1-Math.pow(1-t,3),eIO=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+/* every card is cut to the screen: the stage is at least 400 x 800 and grows sideways or upwards to the edges, with the printed matter kept in a centred 400 x 800 box */
+cards.forEach(c=>{const f=document.createElement('div');f.className='fit';const sh=c.lastElementChild;[...c.children].forEach(n=>{if(n!==sh&&!n.classList.contains('bleed'))f.appendChild(n)});c.insertBefore(f,sh)});
+function fit(){scale=Math.min(innerWidth/400,innerHeight/800);W=Math.min(innerWidth/scale,520);H=Math.min(innerHeight/scale,880);
+  art.style.setProperty('--W',W+'px');art.style.setProperty('--H',H+'px');art.style.transform=`translate(-50%,-50%) scale(${scale})`;
+  LC=Math.max(1,H/800,W/504);lane.style.backgroundSize=`${533.4*LC}px ${800*LC}px`;lane.style.backgroundPosition=`${W/2-281*LC}px ${H/2-400*LC}px`;lane.style.transformOrigin=`${W/2}px ${H/2+44*LC}px`;
+  $('#fade').style.top=`${(H-800)/2+548+330*(W/400-1)}px`;
+  if(stage!=='deck'||idx===0)gates.style.transform=`scale(${W/400})`}
+addEventListener('resize',fit);fit();
+
+function tween(a,b,ms,fn,done,ease){if(reduce)ms=Math.min(ms,120);const t0=performance.now();cancelAnimationFrame(raf);
+  const step=now=>{const t=clamp((now-t0)/ms);fn(a+(b-a)*(ease||eOut)(t));if(t<1)raf=requestAnimationFrame(step);else done&&done()};raf=requestAnimationFrame(step)}
+
+/* which cards exist on screen: only the top one and the one beneath it */
+function show(){cards.forEach((c,k)=>{const on=k===idx||k===idx+1;c.style.display=on?'block':'none';c.style.zIndex=N-k;
+  if(k===idx){c.style.transform='';c.style.visibility='visible';c.style.opacity=1;setShade(c,0)}
+  if(k===idx+1){under(c,0)}});
+  bar.firstElementChild.style.width=(idx/(N-1)*100)+'%'}
+const setShade=(c,v)=>{c.lastElementChild.style.opacity=v};
+function under(c,p){c.style.visibility='visible';c.style.opacity=1;c.style.transform=`scale(${.955+.045*p})`;setShade(c,.42*(1-p))}
+function exit(c,p){const t=c.dataset.exit,r=+c.dataset.rot||4;
+  if(t==='book'){const a=p*104;c.style.transform=`rotateY(${-a}deg)`;c.style.visibility=a>88?'hidden':'visible';setShade(c,p*.5)}
+  else if(t==='flip'){const a=p*104;c.style.transform=`rotateX(${a}deg)`;c.style.visibility=a>88?'hidden':'visible';setShade(c,p*.45)}
+  else{c.style.transform=`translate3d(0,${-p*112}%,0) rotate(${p*r}deg)`;c.style.visibility='visible'}}
+
+/* envelope */
+function envOpen(p){const a=p*178;flap.style.transform=`rotateX(${a}deg)`;const back=a>90;
+  fo.style.visibility=back?'hidden':'visible';seal.style.visibility=back?'hidden':'visible';fi.style.visibility=back?'visible':'hidden';
+  flapwrap.classList.toggle('behind',back);fsh.style.opacity=Math.min(.5,p*1.1);fshadow.style.opacity=clamp(1-p*2.4);
+  $('#ehint').style.opacity=clamp(1-p*3)}
+function envAway(p){const y=p*(H+40);envb.style.transform=envp.style.transform=`translate3d(0,${y}px,0)`;flapwrap.style.transform=`translate3d(0,${y}px,0)`;
+  cards[0].style.transform=`scale(${.9+.1*p})`}
+function envReset(){envb.style.display=envp.style.display=flapwrap.style.display='';envOpen(0);envb.style.transform=envp.style.transform=flapwrap.style.transform='';cards[0].style.transform='scale(.9)'}
+
+/* gates and the drive */
+function gatesOpen(p){const a=p*100;leafL.style.transform=`rotateY(${a}deg)`;leafR.style.transform=`rotateY(${-a}deg)`;
+  leafL.lastElementChild.style.opacity=leafR.lastElementChild.style.opacity=p*.35;ghint.style.opacity=clamp(1-p*3)}
+/* the drive ends with the photographed house sitting exactly on the title card's own copy of it, so the house never leaves the screen */
+let dv={S:1.8,tx:0,ty:-60};
+function driveFit(){const k=800/1536*LC,R={x:322,y:703,w:427},S=house.offsetWidth/(R.w*k),px=W/2-281*LC+R.x*k,py=H/2-400*LC+R.y*k,Ox=W/2,Oy=H/2+44*LC;
+  dv={S,tx:(W-400)/2+house.offsetLeft-Ox-S*(px-Ox),ty:(H-800)/2+house.offsetTop-Oy-S*(py-Oy)}}
+function drive(p){const e=eIO(clamp(p/.74));lane.style.transform=`translate(${dv.tx*e}px,${dv.ty*e}px) scale(${1+(dv.S-1)*e})`;gates.style.transform=`scale(${W/400*(1+4.2*e)})`;gates.style.opacity=clamp(1-e*2.6);
+  gtitle.style.opacity=clamp(1-p*5);veil.style.opacity=clamp(1-e*1.6);
+  const f=clamp((p-.76)/.24);cards[0].style.opacity=1-f}
+function gatesReset(){gatesOpen(0);lane.style.transform='';gates.style.transform=`scale(${W/400})`;gates.style.opacity=gtitle.style.opacity=veil.style.opacity=1;cards[0].style.opacity=1;ghint.style.opacity=1}
+
+/* transitions: each returns {render, commit, cancel} */
+function begin(dir){
+  if(busy)return null;
+  if(stage==='env'&&dir>0)return{span:300,render:envOpen,commit(){busy=true;tween(0,1,1150,envAway,()=>{envb.style.display=envp.style.display=flapwrap.style.display='none';cards[0].style.transform='';stage='gates';busy=false},eIO)}};
+  if(stage==='gates'&&dir>0)return{span:260,render:gatesOpen,commit(){busy=true;cards[1].style.display='block';cards[1].style.transform='';setShade(cards[1],0);driveFit();
+      tween(0,1,reduce?300:4300,drive,()=>{idx=1;stage='deck';show();cards[1].classList.add('on');bar.style.opacity=1;busy=false},t=>t)}};
+  if(stage==='deck'&&dir>0&&idx<N-1){const c=cards[idx],u=cards[idx+1];return{span:300,render(p){exit(c,p);under(u,p)},commit(){idx++;show()}}}
+  if(stage==='deck'&&dir<0&&idx>1){const c=cards[idx-1],u=cards[idx];c.style.display='block';c.style.zIndex=N+1;exit(c,1);
+    return{span:300,render(p){exit(c,1-p);under(u,1-p)},commit(){idx--;show()},cancel(){show()}}}
+  return null;
+}
+function run(tr,from,to){busy=true;const d=Math.abs(to-from);tween(from,to,Math.max(180,(to?760:420)*d),tr.render,()=>{busy=false;if(to){tr.commit()}else{tr.cancel&&tr.cancel()}},to?eIO:eOut)}
+function go(dir){const tr=begin(dir);if(tr)run(tr,0,1)}
+
+art.addEventListener('pointerdown',e=>{if(busy||e.target.closest('#again'))return;drag={y:e.clientY,t:performance.now(),dir:0,p:0,tr:null}});
+addEventListener('pointermove',e=>{if(!drag)return;const dy=(drag.y-e.clientY)/scale;
+  if(!drag.dir){if(Math.abs(dy)<7)return;drag.dir=dy>0?1:-1;drag.tr=begin(drag.dir);if(!drag.tr){drag=null;return}}
+  drag.p=clamp(dy*drag.dir/drag.tr.span);drag.tr.render(drag.p)});
+function up(e){if(!drag)return;const d=drag;drag=null;
+  if(!d.dir){if(e.type==='pointerup'&&!e.target.closest('#again'))go(1);return}
+  const fast=(performance.now()-d.t)<280&&d.p>.08;run(d.tr,d.p,(d.p>.24||fast)?1:0)}
+addEventListener('pointerup',up);addEventListener('pointercancel',up);
+addEventListener('keydown',e=>{if(['ArrowUp','ArrowRight',' ','Enter','PageDown'].includes(e.key)){e.preventDefault();go(1)}else if(['ArrowDown','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();go(-1)}});
+addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>12)go(e.deltaY>0?1:-1)},{passive:true});
+$('#again').addEventListener('click',()=>{if(busy)return;cancelAnimationFrame(raf);stage='env';idx=0;bar.style.opacity=0;cards[1].classList.remove('on');house.style.transform='';gatesReset();show();cards[1].style.display='none';envReset()});
+
+['hero','ivory','flatlay','wall','blanket','leather'].forEach(n=>{const i=new Image();i.src='img/'+n+'.jpg'});
+/* start: sealed envelope with the first card inside */
+show();cards[1].style.display='none';envReset();gatesReset();
+if(location.hash==='#invitation'){envb.style.display=envp.style.display=flapwrap.style.display='none';cards[0].style.transform='';idx=1;stage='deck';show();cards[1].classList.add('on');bar.style.opacity=1}
+window.__dbg={go,jump(i){envb.style.display=envp.style.display=flapwrap.style.display='none';idx=i;stage=i?'deck':'gates';cards[0].style.transform='';show();cards[1].classList.add('on')}};
+})();
+</script>
+</body>
+</html>
